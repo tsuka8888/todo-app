@@ -1,28 +1,49 @@
 import axios from "axios";
 // import React from "react";
 import { TodoState } from "../models/todos";
+import { TodosActionCreators } from "../modules/todos";
+import { store } from "../store";
 
 const todoDataUrl: string = "http://localhost:3100/todos";
 
-export const getAllTodosData = async () => {
-  const response = await axios.get<TodoState[]>(todoDataUrl);
-  return response.data;
-};
+export function getAllTodosData(): (dispatch: any) => any {
+  console.log("aaa");
+  return (dispatch) => {
+    axios.get<TodoState[]>(todoDataUrl).then((response) => {
+      dispatch(TodosActionCreators.fetchTodosFromDbAction(response.data));
+    });
+  };
+}
 
-export const addTodoData = async (todo: TodoState) => {
-  const response = await axios.post<TodoState>(todoDataUrl, todo);
-  return response.data;
-};
+export function addTodoData(todo: TodoState): (dispatch: any) => any {
+  return (dispatch) => {
+    axios.post<TodoState>(todoDataUrl, todo).then((response) => {
+      const { todoList } = store.getState().todos;
+      dispatch(
+        TodosActionCreators.addTodosAction([...todoList, response.data])
+      );
+    });
+  };
+}
 
-export const deleteTodoData = async (id: number) => {
-  await axios.delete<number>(`${todoDataUrl}/${id}`);
-  return id;
-};
+export function deleteTodoData(id: number): (dispatch: any) => any {
+  return (dispatch) => {
+    axios.delete<number>(`${todoDataUrl}/${id}`).then(() => {
+      const { todoList } = store.getState().todos;
+      const newTodoList = todoList.filter((item) => item.id !== id);
+      dispatch(TodosActionCreators.deleteTodosAction(newTodoList));
+    });
+  };
+}
 
-export const updateTodoData = async (todo: TodoState) => {
-  const response = await axios.put<TodoState>(
-    `${todoDataUrl}/${todo.id}`,
-    todo
-  );
-  return response.data;
-};
+export function updateTodoData(todo: TodoState): (dispatch: any) => any {
+  return (dispatch) => {
+    axios.put<TodoState>(`${todoDataUrl}/${todo.id}`, todo).then((response) => {
+      const { todoList } = store.getState().todos;
+      const newTodoList = todoList.map((item) => {
+        return item.id !== response.data.id ? item : response.data;
+      });
+      dispatch(TodosActionCreators.updateTodosAction(newTodoList));
+    });
+  };
+}

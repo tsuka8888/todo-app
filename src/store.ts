@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 import { TodosReducer } from "./modules/todos";
 
@@ -10,4 +11,4 @@ const reducers = combineReducers({
   todos: TodosReducer,
 });
 
-export const store = createStore(reducers);
+export const store = createStore(reducers, applyMiddleware(thunk));

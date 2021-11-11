@@ -1,24 +1,21 @@
 // import {React} from 'react';
 import { useEffect } from "react";
-import { getAllTodosData } from "../apis/todos";
+import { useDispatch } from "react-redux";
 import { useTodo } from "../hooks/useTodo";
 import { TodoState } from "../models/todos";
 import { TodoInput } from "../organisms/todoInput";
 import { TodoList } from "../organisms/todoList";
 
-export const Todos = () => {
-  const {
-    todoList,
-    fetchTodosFromDb,
-  } = useTodo();
+export const Todos: React.VFC = () => {
+  const { todoList, fetchTodos } = useTodo();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // DBからデータを取得し、storeに格納
-    getAllTodosData().then((todoList) => {
-      fetchTodosFromDb(todoList);
-    });
-  }, [fetchTodosFromDb]);
-  
+    dispatch(fetchTodos());
+  }, [dispatch, fetchTodos]);
+
   // TODOが未完了の配列を作成
   const inCompleteList = todoList.filter((todo: TodoState) => {
     return !todo.done;

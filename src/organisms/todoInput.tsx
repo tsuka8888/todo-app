@@ -1,11 +1,10 @@
 import { IconButton, Paper, TextField, Typography } from "@material-ui/core";
 import { Create } from "@material-ui/icons";
-import { ChangeEventHandler, CSSProperties, useCallback, useState } from "react";
+import { CSSProperties, useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useTodo } from "../hooks/useTodo";
 
 export const TodoInput: React.VFC = () => {
-  ("");
-
   // style
   const styles: { [name: string]: CSSProperties } = {
     paper: {
@@ -13,6 +12,9 @@ export const TodoInput: React.VFC = () => {
       padding: "16px 32px",
     },
   };
+
+  // hooks
+  const dispatch = useDispatch();
 
   // state
   const [todo, setTodo] = useState("");
@@ -26,9 +28,9 @@ export const TodoInput: React.VFC = () => {
   );
 
   const onClickCreate = useCallback(() => {
-    addTodoListItem(todo);
+    dispatch(addTodoListItem(todo));
     setTodo("");
-  }, [addTodoListItem, todo]);
+  }, [dispatch, addTodoListItem,todo]);
 
   return (
     <>
