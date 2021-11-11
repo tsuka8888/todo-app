@@ -12,19 +12,13 @@ export const Todos = () => {
     fetchTodosFromDb,
   } = useTodo();
 
-  // 初回レンダリング時のみ
-  // 要素が準備できてから
   useEffect(() => {
     // DBからデータを取得し、storeに格納
     getAllTodosData().then((todoList) => {
       fetchTodosFromDb(todoList);
-      console.log('初回レンダリング',todoList);
     });
   }, [fetchTodosFromDb]);
   
-  // 初期値
-  console.log('useEffectの外',todoList);
-
   // TODOが未完了の配列を作成
   const inCompleteList = todoList.filter((todo: TodoState) => {
     return !todo.done;

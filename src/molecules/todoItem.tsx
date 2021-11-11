@@ -16,7 +16,7 @@ export const TodoItem: React.VFC<TodoState> = (todo) => {
 
   const onClickDelete = useCallback(() => {
     deleteTodoListItem(todo.id);
-  }, [deleteTodoListItem,todo.id]);
+  }, [deleteTodoListItem,todo]);
 
   const onClickToggle = useCallback(() => {
     toggleTodoListItemStatus(todo);

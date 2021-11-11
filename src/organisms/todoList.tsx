@@ -1,7 +1,7 @@
-import { Container, List, Paper } from "@material-ui/core";
+import {  List, Paper, Typography } from "@material-ui/core";
+import { CSSProperties } from "react";
 import { TodoState } from "../models/todos";
 import { TodoItem } from "../molecules/todoItem";
-import { TodoTitle } from "../molecules/todoTitle";
 
 interface TodoListProps {
   todoList: TodoState[];
@@ -14,13 +14,19 @@ export const TodoList: React.VFC<TodoListProps> = ({
   todoList,
   isIncompleteList = false,
 }: TodoListProps) => {
+
   const title = isIncompleteList ? "未完了のTODO" : "完了のTODO";
-  const as = "h2";
+  const styles: { [name: string]: CSSProperties } = {
+    paper: {
+      margin: "16px 0",
+      padding: "16px 32px",
+    },
+  };
 
   return (
-    <Paper>
-      <Container>
-        <TodoTitle title={title} as={as}></TodoTitle>
+    <Paper style={styles.paper}>
+        <Typography variant="subtitle1">{title}</Typography>
+        {/* <TodoTitle title={title} as={as}></TodoTitle> */}
         <List>
           {todoList.map((todo) => {
             return (
@@ -33,7 +39,6 @@ export const TodoList: React.VFC<TodoListProps> = ({
             );
           })}
         </List>
-      </Container>
     </Paper>
   );
 };
