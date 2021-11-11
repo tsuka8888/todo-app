@@ -1,7 +1,7 @@
 import {  List, Paper, Typography } from "@material-ui/core";
 import { CSSProperties } from "react";
 import { TodoState } from "../models/todos";
-import { TodoItem } from "../molecules/todoItem";
+import { TodoItem } from "../molecules/TodoItem";
 
 interface TodoListProps {
   todoList: TodoState[];

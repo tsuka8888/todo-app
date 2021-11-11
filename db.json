@@ -13,17 +13,7 @@
     {
       "id": 3,
       "content": "Chakra UIをインストールする",
-      "done": false
-    },
-    {
-      "id": 4,
-      "content": "aaaa",
-      "done": false
-    },
-    {
-      "id": 5,
-      "content": "aaaaaa",
-      "done": false
+      "done": true
     }
   ]
 }
