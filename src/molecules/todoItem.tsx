@@ -11,7 +11,7 @@ import { useTodo } from "../hooks/useTodo";
 import { useCallback } from "react";
 
 // TodoItemコンポーネントを作成
-export const TodoItem: React.VFC<TodoState> = (todo) => {
+export const TodoItem: React.VFC<TodoState> = (todo:TodoState) => {
   const { toggleTodoListItemStatus, deleteTodoListItem } = useTodo();
 
   const onClickDelete = useCallback(() => {

@@ -9,8 +9,21 @@ import { todosSelector } from "../modules/todos";
 
 // カスタムフック
 export const useTodo = () => {
+  // hooks
   const dispatch = useDispatch();
+
+  // selector
   const todoList = useSelector(todosSelector);
+
+  // TODOが未完了の配列を作成
+  const inCompleteList = todoList.filter((todo: TodoState) => {
+    return !todo.done;
+  });
+
+  // TODOが完了の配列を作成
+  const completeList = todoList.filter((todo: TodoState) => {
+    return todo.done;
+  });
 
   // Todo取得
   const fetchTodos = useCallback(
@@ -52,6 +65,8 @@ export const useTodo = () => {
 
   return {
     todoList,
+    inCompleteList,
+    completeList,
     fetchTodos,
     toggleTodoListItemStatus,
     addTodoListItem,
