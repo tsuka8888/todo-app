@@ -1,7 +1,6 @@
 import React, { CSSProperties } from "react";
 import {
   Link as RouterLink,
-  LinkProps as RouterLinkProps,
 } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
