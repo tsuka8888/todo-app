@@ -4,15 +4,15 @@ import { getAllUsers } from "../apis/users";
 import { usersSelector } from "../modules/users";
 
 export const useUser = () => {
-    const dispatch = useDispatch();
-    const userList = useSelector(usersSelector);
+  const dispatch = useDispatch();
+  const userList = useSelector(usersSelector);
 
-    const fetchAllUsers = useCallback(() => {
-        dispatch(getAllUsers());
-    }, [dispatch, getAllUsers]);
+  const fetchAllUsers = useCallback(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
 
-    return {
-        userList,
-        fetchAllUsers,
-    };
+  return {
+    userList,
+    fetchAllUsers,
+  };
 };

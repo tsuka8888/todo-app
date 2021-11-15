@@ -7,9 +7,11 @@ const todoDataUrl: string = "http://localhost:3100/todos";
 
 export function getAllTodosData(): (dispatch: any) => any {
   return (dispatch) => {
-    axios.get<TodoState[]>(todoDataUrl).then((response) => {
-      dispatch(TodosActionCreators.fetchTodosFromDbAction(response.data));
-    });
+    axios
+      .get<TodoState[]>(todoDataUrl)
+      .then((response) =>
+        dispatch(TodosActionCreators.fetchTodosFromDbAction(response.data))
+      );
   };
 }
 
@@ -18,7 +20,7 @@ export function addTodoData(
 ): (dispatch: any, getState: any) => any {
   return async (dispatch, getState) => {
     const state = getState();
-    const todoList: TodoState[] = state.todos.todoList;
+    const todoList: TodoState[] = state.TodosReducer.todoList;
     await axios
       .post<TodoState>(todoDataUrl, todo)
       .then((response) =>
@@ -35,7 +37,7 @@ export function deleteTodoData(
   return async (dispatch, getState) => {
     await axios.delete<number>(`${todoDataUrl}/${id}`).then(() => {
       const state = getState();
-      const todoList: TodoState[] = state.todos.todoList;
+      const todoList: TodoState[] = state.TodosReducer.todoList;
       const newTodoList = todoList.filter((item) => item.id !== id);
       dispatch(TodosActionCreators.deleteTodosAction(newTodoList));
     });
@@ -50,7 +52,7 @@ export function updateTodoData(
       .put<TodoState>(`${todoDataUrl}/${todo.id}`, todo)
       .then((response) => {
         const state = getState();
-        const todoList: TodoState[] = state.todos.todoList;
+        const todoList: TodoState[] = state.TodosReducer.todoList;
         const newTodoList = todoList.map((item) => {
           return item.id !== response.data.id ? item : response.data;
         });

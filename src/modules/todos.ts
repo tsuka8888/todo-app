@@ -69,11 +69,11 @@ const initialState: {
 
 // selector
 export function todosSelector(rootState: {
-  todos: {
+  TodosReducer: {
     todoList: TodoState[];
   };
 }) {
-  return rootState.todos.todoList;
+  return rootState.TodosReducer.todoList;
 }
 
 // Reducer
