@@ -9,8 +9,8 @@ export interface RootState {
 }
 
 const reducers = combineReducers({
-  todos: TodosReducer,
-  users: UsersReducer
+  TodosReducer,
+  UsersReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));
