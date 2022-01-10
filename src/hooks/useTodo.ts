@@ -1,69 +1,35 @@
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// 一意なIDを生成する
-import { ulid } from "ulid";
-import * as todoData from "../apis/todos";
-import { TodoState } from "../models/todos";
-import { todosSelector } from "../modules/todos";
-// import { store } from "../store";
+import { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { todosSelector } from '../modules/todos/selectors'
+import { getTodoList, addTodoData } from '../modules/todos/operations'
+import { TodoState } from '../modules/todos/types'
 
 // カスタムフック
 export const useTodo = () => {
-    // hooks
-    const dispatch = useDispatch();
+  // hooks
+  const dispatch = useDispatch()
 
-    // selector
-    const todoList = useSelector(todosSelector);
+  // selector
+  const storeTodo = useSelector(todosSelector)
+  const todoList = storeTodo.todoList
+  const inCompleteTodoList = todoList.filter((todo)=>{
+    return todo.done === false
+  })
+  const completeTodoList = todoList.filter((todo)=>{
+    return todo.done === true
+  })
 
-    // TODOが未完了の配列を作成
-    const inCompleteList = todoList.filter((todo: TodoState) => {
-        return !todo.done;
-    });
+  // Todo取得
+  const fetchTodos = useCallback(() => dispatch(getTodoList()), [dispatch])
 
-    // TODOが完了の配列を作成
-    const completeList = todoList.filter((todo: TodoState) => {
-        return todo.done;
-    });
+  // Todo作成
+  const createTodo = useCallback((body: TodoState) => dispatch(addTodoData(body)), [dispatch])
 
-    // Todo取得
-    const fetchTodos = useCallback(() => dispatch(todoData.getAllTodosData()), [dispatch]);
-
-    // todoListItemのdoneを反転させて登録する
-    // todoListが変わったら、関数を再作成
-    const toggleTodoListItemStatus = useCallback(
-        (todo: TodoState) => {
-            const todoItem = todoList.find((item) => item.id === todo.id);
-            if (!todoItem) return false;
-            const newTodoItem = { ...todoItem, done: !todo.done };
-
-            dispatch(todoData.updateTodoData(newTodoItem));
-        },
-        [dispatch, todoList]
-    );
-
-    // 新規Todoを追加する
-    const addTodoListItem = useCallback(
-        (todoContent: string) => {
-            const newTodoItem: TodoState = {
-                id: Number(ulid()),
-                content: todoContent,
-                done: false,
-            };
-            dispatch(todoData.addTodoData(newTodoItem));
-        },
-        [dispatch]
-    );
-
-    // Todoを削除する
-    const deleteTodoListItem = useCallback((id: number) => dispatch(todoData.deleteTodoData(id)), [dispatch]);
-
-    return {
-        todoList,
-        inCompleteList,
-        completeList,
-        fetchTodos,
-        toggleTodoListItemStatus,
-        addTodoListItem,
-        deleteTodoListItem,
-    };
-};
+  return {
+    todoList,
+    inCompleteTodoList,
+    completeTodoList,
+    fetchTodos,
+    createTodo,
+  }
+}

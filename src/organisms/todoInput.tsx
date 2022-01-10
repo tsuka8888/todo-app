@@ -1,46 +1,50 @@
-import { IconButton, Paper, TextField, Typography } from "@material-ui/core";
-import { Create } from "@material-ui/icons";
-import { CSSProperties, useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useTodo } from "../hooks/useTodo";
+import React from 'react'
+import { IconButton, Paper, TextField, Typography } from '@material-ui/core'
+import { Create } from '@material-ui/icons'
+import { CSSProperties, useState } from 'react'
+import { useTodo } from '../hooks/useTodo'
+import { TodoState } from '../modules/todos/types'
+import { ulid } from 'ulid'
 
 export const TodoInput: React.VFC = () => {
-    // style
-    const styles: { [name: string]: CSSProperties } = {
-        paper: {
-            // "textAlign": "center",
-            padding: "16px 32px",
-        },
-    };
+  // style
+  const styles: { [name: string]: CSSProperties } = {
+    paper: {
+      padding: '16px 32px',
+    },
+  }
 
-    // hooks
-    const dispatch = useDispatch();
+  const {createTodo} = useTodo()
+  const [todo, setTodo] = useState<string>('')
 
-    // state
-    const [todo, setTodo] = useState("");
-    const { addTodoListItem } = useTodo();
+  const onChangeTodo = (e: any) => {
+    setTodo(e.target.value)
+  }
 
-    const onChangeInput = useCallback(
-        (e: any) => {
-            setTodo(e.target.value);
-        },
-        [setTodo]
-    );
+  const onClickCreateButton = () => {
+    const body: TodoState = {
+      id: ulid(),
+      content: todo,
+      done: false,
+    }
+    createTodo(body)
+  }
 
-    const onClickCreate = useCallback(() => {
-        dispatch(() => addTodoListItem(todo));
-        setTodo("");
-    }, [dispatch, addTodoListItem, todo]);
-
-    return (
-        <>
-            <Paper style={styles.paper}>
-                <Typography variant="h6">TODO進捗管理</Typography>
-                <TextField id="standard-basic" label="Todo" variant="standard" value={todo} onChange={onChangeInput} />
-                <IconButton onClick={onClickCreate}>
-                    <Create />
-                </IconButton>
-            </Paper>
-        </>
-    );
-};
+  return (
+    <>
+      <Paper style={styles.paper}>
+        <Typography variant="h6">TODO進捗管理</Typography>
+        <TextField
+          id="standard-basic"
+          label="Todo"
+          variant="standard"
+          value={todo}
+          onChange={onChangeTodo}
+        />
+        <IconButton onClick={onClickCreateButton}>
+          <Create />
+        </IconButton>
+      </Paper>
+    </>
+  )
+}

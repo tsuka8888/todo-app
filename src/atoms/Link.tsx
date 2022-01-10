@@ -1,6 +1,8 @@
+import React from "react";
+
 type LinkProps = {
     url: string;
-    children: ChildNode;
+    children: React.ReactNode;
 };
 
 export const Link: React.VFC<LinkProps> = ({ url, children }) => {

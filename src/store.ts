@@ -1,8 +1,8 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import { TodosReducer } from "./modules/todos";
-import { UsersReducer } from "./modules/users";
+import { TodosReducer } from "./modules/todos/reducers";
+import { UsersReducer } from "./modules/users/reducers";
 
 export interface RootState {
   todos: ReturnType<typeof TodosReducer>;

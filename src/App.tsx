@@ -1,30 +1,13 @@
-import { Todos } from "./pages/Todos";
-import { Header } from "./organisms/Header";
-import { Provider } from "react-redux";
-import { store } from "./store";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react'
+import { Header } from './organisms/Header'
+import { Provider } from 'react-redux'
+import { store } from './store'
+import { BrowserRouter } from 'react-router-dom'
 
-import { createTheme, ThemeProvider } from "@material-ui/core";
-import { Users } from "./pages/Users";
+import { createTheme, ThemeProvider } from '@material-ui/core'
+import { Router } from './router'
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       light: "#757ce8",
-//       main: "#3f50b5",
-//       dark: "#002884",
-//       contrastText: "#fff",
-//     },
-//     secondary: {
-//       light: "#ff7961",
-//       main: "#f44336",
-//       dark: "#ba000d",
-//       contrastText: "#000",
-//     },
-//   },
-// });
-
-const theme = createTheme();
+const theme = createTheme()
 
 function App() {
   return (
@@ -33,15 +16,12 @@ function App() {
         <BrowserRouter>
           <>
             <Header></Header>
-            <Routes>
-              <Route path="/" element={<Todos />} />
-              <Route path="/users" element={<Users />} />
-            </Routes>
+            <Router />
           </>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>
-  );
+  )
 }
 
-export default App;
+export default App

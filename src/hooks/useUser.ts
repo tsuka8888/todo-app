@@ -1,18 +1,34 @@
-import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../apis/users";
-import { usersSelector } from "../modules/users";
+import { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserList, getUser, createUser } from '../modules/users/operations'
+import { userListSelector } from '../modules/users'
 
 export const useUser = () => {
-    const dispatch = useDispatch();
-    const userList = useSelector(usersSelector);
+  const dispatch = useDispatch()
+  const storeUser = useSelector(userListSelector)
 
-    const fetchAllUsers = useCallback(() => {
-        dispatch(getAllUsers());
-    }, [dispatch, getAllUsers]);
+  const fetchUserList = useCallback(() => {
+    dispatch(getUserList())
+  }, [dispatch])
 
-    return {
-        userList,
-        fetchAllUsers,
-    };
-};
+  const fetchUser = useCallback(
+    (id: string) => {
+      dispatch(getUser(id))
+    },
+    [dispatch]
+  )
+
+  const postUser = useCallback(
+    (body: any) => {
+      dispatch(createUser(body))
+    },
+    [dispatch]
+  )
+
+  return {
+    storeUser,
+    fetchUserList,
+    fetchUser,
+    postUser,
+  }
+}

@@ -1,18 +1,25 @@
-import { Container, Typography } from "@material-ui/core";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useUser } from "../hooks/useUser";
-import { UserList } from "../organisms/UserList";
+import React from 'react'
+import { useEffect } from 'react'
+import { Container, Typography } from '@material-ui/core'
+import { useUser } from '../hooks/useUser'
+import { UserList } from '../organisms/UserList'
+import { ButtonRouter } from '../molecules/ButtonRouter'
+
 export const Users = () => {
-    const { userList, fetchAllUsers } = useUser();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        fetchAllUsers();
-    }, [fetchAllUsers]);
-    return (
-        <Container>
-            <Typography variant="subtitle1">Userページ</Typography>
-            <UserList userList={userList} />
-        </Container>
-    );
-};
+  const { storeUser, fetchUserList } = useUser()
+  useEffect(() => {
+    fetchUserList()
+  }, [fetchUserList])
+
+  return (
+    <>
+      <Container>
+        <div>
+          <ButtonRouter path="./create">新規作成</ButtonRouter>
+        </div>
+        <Typography variant="subtitle1">Userページ</Typography>
+        {storeUser.userList && <UserList userList={storeUser.userList} />}
+      </Container>
+    </>
+  )
+}
