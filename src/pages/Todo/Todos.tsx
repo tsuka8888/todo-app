@@ -12,6 +12,8 @@ export const Todos: React.VFC = () => {
   }, [])
 
   console.log(todoList)
+  console.log(inCompleteTodoList)
+  console.log(completeTodoList)
 
   return (
     <>
