@@ -11,7 +11,7 @@ export const useTodo = () => {
 
   // selector
   const storeTodo = useSelector(todosSelector)
-  const todoList = storeTodo.todoList
+  const todoList = storeTodo?.todoList || []
   const inCompleteTodoList = todoList.filter((todo)=>{
     return todo.done === false
   })

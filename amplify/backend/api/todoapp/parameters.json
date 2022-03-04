@@ -1,6 +1,0 @@
-{
-  "AppSyncApiName": "todoapp",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2021-11-23T11:24:48.844Z"
-}

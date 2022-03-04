@@ -23,6 +23,7 @@ export function fetchTodoListAction() {
   }
 }
 export function fetchTodoListSuccessAction(todos: TYPE.TodoState[]) {
+  console.log('todos', todos)
   return {
     type: FETCH_TODO_LIST_SUCCESS,
     payload: todos,

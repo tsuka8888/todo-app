@@ -1,5 +1,0 @@
-type Todos @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  content: String
-  done: Boolean
-}

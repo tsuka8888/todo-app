@@ -3,3 +3,4 @@ export interface TodoState {
   content: string;
   done: boolean;
 }
+export type TodoList = Array<TodoState>
