@@ -1,5 +1,4 @@
 import React from 'react'
-import { Header } from './organisms/Header'
 import { Provider } from 'react-redux'
 import { store } from './store'
 import { BrowserRouter } from 'react-router-dom'
@@ -15,7 +14,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <>
-            <Header></Header>
             <Router />
           </>
         </BrowserRouter>

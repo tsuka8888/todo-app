@@ -1,5 +1,6 @@
 import { InitialState } from './reducers'
+import {TodoState} from './types'
 
-export function todosSelector(rootState: { todos: InitialState }) {
-  return rootState.todos
+export function todosSelector(rootState: InitialState) {
+  return rootState.todoList
 }

@@ -10,6 +10,7 @@ export const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<Top />} />
+      <Route path="/todos" element={<Todos />} />
       <Route path="/users" element={<Users />} />
       <Route path="/users/:id" element={<User />} />
       <Route path="/users/create" element={<CreateUserPage />} />

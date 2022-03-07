@@ -5,7 +5,6 @@ import DeleteForever from '@material-ui/icons/DeleteForever'
 import Check from '@material-ui/icons/Check'
 import Restore from '@material-ui/icons/Restore'
 
-// TodoItemコンポーネントを作成
 export const TodoItem: React.VFC<TodoState> = (todo: TodoState) => {
   return (
     <ListItem>

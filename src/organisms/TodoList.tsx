@@ -4,12 +4,11 @@ import { TodoState } from '../modules/todos/types'
 import { TodoItem } from '../molecules/TodoItem'
 
 interface TodoListProps {
-  todoList: TodoState[]
+  todoList: TodoState[] | undefined
   isIncompleteList?: boolean
 }
 
 // TodoListコンポーネントを作成
-// export const TodoList = ({todoList}:TodoListProps) => {
 export const TodoList: React.VFC<TodoListProps> = ({
   todoList,
   isIncompleteList = false,
@@ -22,7 +21,7 @@ export const TodoList: React.VFC<TodoListProps> = ({
         <Box p={4}>
           <Typography variant="subtitle1">{title}</Typography>
           <List>
-            {todoList.map((todo) => {
+            {todoList && todoList.map((todo) => {
               return <TodoItem key={todo.id} id={todo.id} content={todo.content} done={todo.done} />
             })}
           </List>

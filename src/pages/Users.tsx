@@ -18,7 +18,7 @@ export const Users = () => {
           <ButtonRouter path="./create">新規作成</ButtonRouter>
         </div>
         <Typography variant="subtitle1">Userページ</Typography>
-        {storeUser.userList && <UserList userList={storeUser.userList} />}
+        {storeUser?.userList && <UserList userList={storeUser.userList} />}
       </Container>
     </>
   )

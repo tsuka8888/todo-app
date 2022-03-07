@@ -7,7 +7,6 @@ const todoDataUrl = 'https://atk7e5jl02.execute-api.ap-northeast-1.amazonaws.com
 export function getTodoList(): (dispatch: any) => any {
   return (dispatch) => {
     axios.get(todoDataUrl).then((response) => {
-      console.log(response.data)
       dispatch(ACTIONS.fetchTodoListSuccessAction(response.data.Items))
     })
   }
