@@ -14,20 +14,20 @@ export const TodoInput: React.VFC = () => {
     },
   }
 
-  const {createTodo} = useTodo()
+  const { addTodoData } = useTodo()
   const [todo, setTodo] = useState<string>('')
 
   const onChangeTodo = (e: any) => {
     setTodo(e.target.value)
   }
 
-  const onClickCreateButton = () => {
+  const onClickCreateButton = async () => {
     const body: TodoState = {
       id: ulid(),
       content: todo,
       done: false,
     }
-    createTodo(body)
+    await addTodoData(body)
   }
 
   return (
