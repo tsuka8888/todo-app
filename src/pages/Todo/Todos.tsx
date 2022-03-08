@@ -12,10 +12,13 @@ import { RootState } from '../../store'
 import axios from 'axios'
 import { todoApiEndPoint } from '../../modules/common'
 
-
-export const TodoContext = createContext<TodoState[] | undefined>([])
+export const TodoContext = createContext(
+  {} as {
+    todoList: TodoState[] | undefined
+    setTodoList: React.Dispatch<React.SetStateAction<TodoState[] | undefined>>
+  }
+)
 export const Todos: React.VFC = () => {
-  // const { getTodoList } = useTodo()
   const [todoList, setTodoList] = useState<TodoState[]>()
   const [completeTodoList, setCompleteTodoList] = useState<TodoState[]>()
   const [inCompleteTodoList, setInCompleteTodoList] = useState<TodoState[]>()
@@ -37,9 +40,24 @@ export const Todos: React.VFC = () => {
     })
   }, [])
 
+  useEffect(() => {
+    if (todoList) {
+      setInCompleteTodoList(
+        todoList.filter((todo) => {
+          return todo.done === false
+        })
+      )
+      setCompleteTodoList(
+        todoList.filter((todo) => {
+          return todo.done === true
+        })
+      )
+    }
+  }, [todoList])
+
   return (
     <>
-      <TodoContext.Provider value={todoList}>
+      <TodoContext.Provider value={{ todoList, setTodoList }}>
         <Container>
           <Box py={4}>
             <TodoInput></TodoInput>
