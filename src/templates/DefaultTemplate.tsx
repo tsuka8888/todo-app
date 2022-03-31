@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react'
+/* eslint-disable react/prop-types */
+import React, { ReactChild, ReactElement } from 'react'
 import { Header } from '../organisms/Header'
 
 type DefaultPagesProps = {
-  children: ReactElement
+  children: React.ReactNode
 }
 
 export const DefaultPages: React.VFC<DefaultPagesProps> = (props) => {

@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import { Container, Box } from '@material-ui/core'
+import { Container, Box, makeStyles } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { useTodo } from '../../hooks/useTodo'
 import { TodoInput } from '../../organisms/TodoInput'
@@ -11,6 +11,19 @@ import { InitialState } from '../../modules/loading/reducers'
 import { RootState } from '../../store'
 import axios from 'axios'
 import { todoApiEndPoint } from '../../modules/common'
+import { DefaultPages } from '../../templates/DefaultTemplate'
+import { classicNameResolver } from 'typescript'
+
+const useStyles = makeStyles({
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '0 20px'
+  },
+  card: {
+    minHeight: 400,
+  }
+})
 
 export const TodoContext = createContext(
   {} as {
@@ -22,6 +35,8 @@ export const Todos: React.VFC = () => {
   const [todoList, setTodoList] = useState<TodoState[]>()
   const [completeTodoList, setCompleteTodoList] = useState<TodoState[]>()
   const [inCompleteTodoList, setInCompleteTodoList] = useState<TodoState[]>()
+
+  const classes = useStyles()
 
   useEffect(() => {
     axios.get(todoApiEndPoint).then((response) => {
@@ -56,16 +71,16 @@ export const Todos: React.VFC = () => {
   }, [todoList])
 
   return (
-    <>
+    <DefaultPages>
       <TodoContext.Provider value={{ todoList, setTodoList }}>
         <Container>
-          <Box py={4}>
-            <TodoInput></TodoInput>
+          <Box py={4} className={classes.content}>
+            {/* <TodoInput></TodoInput> */}
             <TodoList todoList={inCompleteTodoList} isIncompleteList={true}></TodoList>
             <TodoList todoList={completeTodoList}></TodoList>
           </Box>
         </Container>
       </TodoContext.Provider>
-    </>
+    </DefaultPages>
   )
 }
