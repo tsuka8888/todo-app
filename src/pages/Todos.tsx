@@ -4,9 +4,9 @@ import { useEffect } from 'react'
 import { useTodo } from '../hooks/useTodo'
 import { TodoInput } from '../organisms/TodoInput'
 import { TodoList } from '../organisms/TodoList'
+import { Header } from '../organisms/Header'
 
 export const Todos: React.VFC = () => {
-  console.log('ad')
   // hooks
   const { inCompleteTodoList, completeTodoList, fetchTodos } = useTodo()
   useEffect(() => {
@@ -14,10 +14,9 @@ export const Todos: React.VFC = () => {
     fetchTodos()
   }, [fetchTodos])
 
-  console.log('completeTodoList', completeTodoList)
-
   return (
     <>
+      <Header />
       <Container>
         <Box py={4}>
           <TodoInput></TodoInput>
